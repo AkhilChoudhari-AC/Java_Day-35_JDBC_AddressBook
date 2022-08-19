@@ -64,11 +64,9 @@ public class AddressBookRepo {
     public int countByCiy(String next) {
         return 0;
     }
-
     public int countByState(String next) {
         return 0;
     }
-
     public List<Contacts> findAllForParticularDate(LocalDate of) {
         return null;
     }

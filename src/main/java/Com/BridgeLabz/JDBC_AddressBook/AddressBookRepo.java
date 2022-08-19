@@ -1,14 +1,11 @@
 package Com.BridgeLabz.JDBC_AddressBook;
+
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookRepo {
     Connection connection;
-
-    public static void insertData(Contacts add) {
-    }
 
     private Connection getConnection() {
         String URL_JD = "jdbc:mysql://localhost:3306/payroll_service";
@@ -18,7 +15,7 @@ public class AddressBookRepo {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Drivers loaded!!");
-            connection = DriverManager.getConnection(URL_JD,USER_NAME,PASSWORD);
+            connection = DriverManager.getConnection(URL_JD, USER_NAME, PASSWORD);
             System.out.println("connection Established!!");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -58,16 +55,18 @@ public class AddressBookRepo {
 
     }
 
-    public void updateCityByZip(String next, String next1, String next2, int nextInt, int nextInt1) {
+    public void updateCityByZip(String address, String city, String state, int zip, int srNo) {
+        try (Connection connection = getConnection()) {
+            Statement statement = connection.createStatement();
+            String query = "Update addressBook set address=" + "'" + address + "'" + ", " + "city=" + "'" + city + "'" + ", " + "state=" + "'" + state + "'" + ", " + "zip=" + zip + " where srNo=" + srNo + ";";
+            int result = statement.executeUpdate(query);
+            System.out.println(result);
+            if (result > 0) {
+                System.out.println("Address Updated Successfully");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public int countByCiy(String next) {
-        return 0;
-    }
-    public int countByState(String next) {
-        return 0;
-    }
-    public List<Contacts> findAllForParticularDate(LocalDate of) {
-        return null;
-    }
 }
